@@ -1,4 +1,4 @@
-BITSTREAM ?= out/led_blink.bit
+BITSTREAM ?= build/top.bit
 SOURCES ?= $(wildcard hdl/*.v hdl/*.sv hdl/*.vhd xdc/*.xcd)
 VIVADO ?= vivado -mode batch -nolog -nojournal -source
 
@@ -10,5 +10,9 @@ deploy: $(BITSTREAM)
 bitstream: $(BITSTREAM)
 
 $(BITSTREAM): $(SOURCES)
-	mkdir -p out
+	mkdir -p build
 	$(VIVADO) build.tcl
+
+.PHONY: clean
+clean:
+	rm -rf .cache .Xil build

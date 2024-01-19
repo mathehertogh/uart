@@ -1,4 +1,4 @@
-set bitstream out/led_blink.bit
+set bitstream build/top.bit
 
 open_hw_manager
 connect_hw_server

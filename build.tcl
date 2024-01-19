@@ -7,29 +7,27 @@ set_property -dict [list \
 	IP_REPO_PATHS ip \
 ] [current_project]
 
-config_ip_cache -clear_output_repo
-
 # Build IP components.
 read_ip ip/clk_wiz_0/clk_wiz_0.xci
 generate_target all [get_ips]
 
 # Read (our own) source files.
-read_verilog -sv "hdl/led_blink.sv"
-read_xdc "xdc/led_blink.xdc"
+read_verilog -sv "hdl/top.sv"
+read_xdc "xdc/top.xdc"
 
 # Synthesize design.
-synth_design -top led_blink -part xcvu9p-flga2104-2L-e
+synth_design -top top -part xcvu9p-flga2104-2L-e
 report_timing_summary
-write_checkpoint out/post_synth.dcp
+write_checkpoint -force  build/post_synth.dcp
 
 # Place & Route.
 opt_design
-write_checkpoint out/post_opt.dcp
+write_checkpoint -force build/post_opt.dcp
 place_design
-write_checkpoint out/post_place.dcp
+write_checkpoint -force  build/post_place.dcp
 route_design
 report_timing_summary
-write_checkpoint out/post_route.dcp
+write_checkpoint -force  build/post_route.dcp
 
 # Generate bitstream.
-write_bitstream -force out/led_blink.bit
+write_bitstream -force build/top.bit
