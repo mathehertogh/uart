@@ -12,6 +12,7 @@ read_ip ip/clk_wiz_0/clk_wiz_0.xci
 generate_target all [get_ips]
 
 # Read (our own) source files.
+read_verilog -sv "hdl/uart.sv"
 read_verilog -sv "hdl/top.sv"
 read_xdc "xdc/top.xdc"
 

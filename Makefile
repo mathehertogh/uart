@@ -9,10 +9,14 @@ deploy: $(BITSTREAM)
 .PHONY: bitstream
 bitstream: $(BITSTREAM)
 
-$(BITSTREAM): $(SOURCES)
-	mkdir -p build
-	$(VIVADO) build.tcl
+.PHONY: test
+test:
+	sudo cat /dev/ttyUSB1
 
 .PHONY: clean
 clean:
 	rm -rf .cache .Xil build
+
+$(BITSTREAM): $(SOURCES)
+	mkdir -p build
+	$(VIVADO) build.tcl
